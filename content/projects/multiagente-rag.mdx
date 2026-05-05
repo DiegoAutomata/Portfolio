@@ -1,0 +1,35 @@
+---
+title: MultiAgente RAG
+description: Enterprise multi-agent RAG system with hallucination prevention. 6 specialized agents orchestrate PDF ingestion, hybrid search, and zero-hallucination responses with real-time pipeline visualization.
+date: "2025-08-01"
+url: https://multiagente-rag.vercel.app
+urlLabel: "Ver Demo"
+published: true
+repository: DiegoAutomata/MultiAgente-RAG
+---
+
+## Architecture
+
+MultiAgente RAG implements a **6-agent pipeline** that eliminates hallucinated responses:
+
+1. **Orchestrator** — Routes incoming queries and coordinates agent execution
+2. **Semantic Router** — Classifies intent using lightweight Claude Haiku
+3. **Investigator Agent** — Executes hybrid search (BM25 + pgvector cosine similarity via Reciprocal Rank Fusion)
+4. **Writer Agent** — Generates responses grounded exclusively in retrieved context
+5. **Verification Auditor** — Rejects any response containing unverified claims, triggering up to 3 retries
+6. **Chart Agent** — Produces interactive Recharts visualizations from structured data
+
+## Technical Highlights
+
+- **Hybrid Search Engine**: BM25 full-text search (`tsvector` + GIN index) combined with pgvector cosine similarity via Reciprocal Rank Fusion, with a three-tier fallback strategy (RPC → direct `ilike` → recent chunks).
+- **Local Embeddings Pipeline**: Server-side embedding generation using `@xenova/transformers` (Xenova/all-MiniLM-L6-v2) — no external API calls required.
+- **Streaming PDF Ingestion**: Python pipeline processes PDFs page-by-page in batches, making documents searchable before embeddings are complete.
+- **PCA Vector Visualization**: Interactive 2D scatter plot of document clusters computed from 384-dimensional embeddings via PCA.
+- **Real-time Agent Flow Visualization**: Animated pipeline showing each agent's execution status as queries are processed.
+
+## Security
+
+- Row-Level Security on Supabase tables with strict user isolation
+- Python binary path validation with allowlist regex
+- Rate limiting with Upstash Redis and graceful in-memory fallback
+- Internal error messages sanitized before client delivery

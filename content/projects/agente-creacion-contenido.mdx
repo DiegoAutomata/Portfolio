@@ -1,0 +1,71 @@
+---
+title: LinkedIn Content Agent
+description: Agente autónomo de creación de contenido para LinkedIn, operado desde Telegram. Genera posts con Claude Sonnet 4.6, produce imágenes con IA y publica directo en LinkedIn con un solo mensaje.
+date: "2025-09-01"
+published: true
+repository: DiegoAutomata/Agente_Creacion_contenido
+---
+
+## ¿Cómo Funciona?
+
+El agente funciona completamente dentro de **Telegram** — no necesitas abrir ninguna página web. Envías un tema por mensaje y el agente hace todo el ciclo automáticamente:
+
+### 1. Input del Usuario
+
+Envías un tema a @lezrai_agent en Telegram: *"Automatización con IA para PyMEs"*
+
+### 2. Generación de Contenido
+
+**Claude Sonnet 4.6** recibe el tema y genera un post completo en la voz de Diego Lezana, usando frameworks de copywriting **AIDA** (Atención-Interés-Deseo-Acción) y **PAS** (Problema-Agitación-Solución). El post incluye:
+
+- Hook con dato impactante o pregunta incómoda
+- Desarrollo en uno de 3 formatos: Lista, Problema-Solución, o Quiz Interactivo
+- Cierre con realidad del mercado, experiencia personal, y pregunta de engagement
+- Hashtags optimizados para alcance en LATAM
+
+### 3. Generación de Imagen (Pipeline Multi-Modelo)
+
+**Etapa A** — Claude Haiku 4.5 analiza el contenido del post y genera un prompt visual cinematográfico de 100-120 palabras, diseñado para producir imágenes fotorrealistas estilo editorial.
+
+**Etapa B** — Se ejecuta uno de dos caminos:
+
+| Camino | Motor | Resultado |
+|--------|-------|-----------|
+| **Primario** | Fal.AI → Nano Banana 2 (Gemini 3.1 Flash) | Imagen fotorrealista 1:1 |
+| **Fallback** | Satori + Clearbit (logos reales) | Infografía con 3 layouts: Grid, Flow o Contrast |
+
+La infografía fallback elige layout dinámicamente según el tipo de contenido, incluye logos reales de herramientas mencionadas (Clearbit), y se renderiza como PNG 1080×1080.
+
+### 4. Revisión en Telegram
+
+El bot envía el post completo + imagen generada directamente en el chat. Puedes:
+
+- **Pedir correcciones** — Envía el cambio y Claude reescribe el post manteniendo el contexto
+- **Descartar** — "nuevo" o "reset" para empezar de cero
+
+### 5. Publicación en LinkedIn
+
+Responde **"ok"** para perfil personal o **"lezrai"** para la página de empresa. El agente:
+
+1. Sube la imagen al LinkedIn Assets API (registro + upload binario)
+2. Convierte `**texto**` a **𝗯𝗼𝗹𝗱 𝗨𝗻𝗶𝗰𝗼𝗱𝗲** nativo de LinkedIn
+3. Publica el UGC Post con visibilidad pública
+
+### Sesiones con Memoria
+
+Cada conversación mantiene una sesión en **Supabase** (`telegram_sessions`) con el último draft e historial de los últimos 20 posts. Esto permite iterar sobre un mismo post sin perder contexto.
+
+```
+┌─────────────┐     ┌──────────────┐     ┌─────────────┐     ┌──────────┐
+│   Tema en   │────▶│ Claude Sonnet │────▶│ Claude Haiku │────▶│  Fal.AI  │
+│  Telegram   │     │   4.6 (Post)  │     │  (Prompt)   │     │ (Imagen) │
+└─────────────┘     └──────────────┘     └─────────────┘     └──────────┘
+                                                                        │
+      ┌─────────────────────────────────────────────────────────────────┘
+      │
+      ▼
+┌─────────────┐     ┌──────────────┐     ┌──────────────────┐
+│  Revisión   │────▶│   Aprobado   │────▶│  LinkedIn API    │
+│  en Telegram │     │  "ok"/"lezrai"│     │  (Publicación)  │
+└─────────────┘     └──────────────┘     └──────────────────┘
+```

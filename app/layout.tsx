@@ -1,29 +1,57 @@
 import "../global.css";
-import { Inter } from "@next/font/google";
-import LocalFont from "@next/font/local";
+import { Inter } from "next/font/google";
+import LocalFont from "next/font/local";
 import { Metadata } from "next";
 import { Analytics } from "./components/analytics";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://diegolezana.com"),
   title: {
-    default: "chronark.com",
-    template: "%s | chronark.com",
+    default: "Diego Lezana",
+    template: "%s | Diego Lezana",
   },
-  description: "Co-founder of unkey.dev and founder of planetfall.io",
+  description:
+    "Diego Lezana — AI & Full-Stack Developer. Founder de Lezrai. Especializado en orquestación de agentes de IA con LangGraph y Agent SDK, arquitecturas RAG y Model Context Protocol (MCP). Stack: TypeScript, Next.js, React, Supabase.",
+  keywords: [
+    "AI Developer",
+    "Full-Stack Developer",
+    "AI Engineer",
+    "LangGraph",
+    "Agent SDK",
+    "RAG Architectures",
+    "Model Context Protocol",
+    "MCP",
+    "AI Agents",
+    "Orquestación de Agentes",
+    "TypeScript",
+    "Next.js",
+    "React",
+    "Supabase",
+    "Prompt Engineering",
+    "Docker Swarm",
+    "n8n",
+    "Inteligencia Artificial",
+    "Lezrai",
+    "Diego Lezana",
+    "Bariloche",
+    "Argentina",
+  ],
+  authors: [{ name: "Diego Lezana" }],
+  creator: "Diego Lezana",
   openGraph: {
-    title: "chronark.com",
+    title: "Diego Lezana — AI & Full-Stack Developer",
     description:
-      "Co-founder of unkey.dev and founder of planetfall.io",
-    url: "https://chronark.com",
-    siteName: "chronark.com",
+      "AI & Full-Stack Developer | Founder de Lezrai. Orquestación de agentes de IA, arquitecturas RAG y MCP.",
+    url: "https://diegolezana.com",
+    siteName: "Diego Lezana",
     images: [
       {
-        url: "https://chronark.com/og.png",
+        url: "https://diegolezana.com/og.png",
         width: 1920,
         height: 1080,
       },
     ],
-    locale: "en-US",
+    locale: "es-AR",
     type: "website",
   },
   robots: {
@@ -38,7 +66,7 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: "Chronark",
+    title: "Diego Lezana — AI & Full-Stack Developer",
     card: "summary_large_image",
   },
   icons: {
@@ -61,7 +89,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={[inter.variable, calSans.variable].join(" ")}>
+    <html lang="es" className={[inter.variable, calSans.variable].join(" ")}>
       <head>
         <Analytics />
       </head>

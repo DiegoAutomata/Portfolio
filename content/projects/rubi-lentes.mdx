@@ -1,0 +1,22 @@
+---
+title: Rubi Lentes
+description: Luxury e-commerce platform with AI-powered chatbot, WhatsApp commerce integration, and real-time product management for an Argentine boutique.
+date: "2025-06-01"
+url: https://proyecto-rubi.vercel.app
+urlLabel: "Ver Tienda"
+published: true
+repository: Lr-26/-Proyecto-Rubi
+---
+
+## Overview
+
+Rubi Lentes is a luxury e-commerce catalog for an Argentine boutique selling sunglasses, bags, and wallets from premium brands (Miu Miu, Prada, Chanel, Dior, Louis Vuitton). Instead of a traditional shopping cart, the platform uses **WhatsApp as the primary sales channel** — users browse the catalog and purchase directly through chat.
+
+## Technical Highlights
+
+- **AI Chatbot Integration**: Google Gemini (`gemini-2.0-flash-lite`) powers a customer-facing assistant that answers product questions, calculates prices with a safe math evaluator, and schedules showroom appointments.
+- **Dual Database Architecture**: Firebase (Firestore, Auth, Storage) for products and Supabase for user registration and contacts, with localStorage fallback for resilience.
+- **Premium UI/UX**: Framer Motion animations, parallax effects, luxury color palette (gold, ruby, dark), and brand-segmented product pages across three tiers (Premium, Plus, Standard).
+- **WhatsApp Commerce Funnel**: Floating button + application form both route to WhatsApp with pre-filled messages including user data.
+- **Transaction Emails**: Welcome email via Resend with branded HTML template.
+- **Admin Dashboard**: Product CRUD, stock management with in/low/out status, image upload to Firebase Storage, and one-click database seeding.

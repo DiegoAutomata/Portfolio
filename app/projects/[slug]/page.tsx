@@ -6,6 +6,13 @@ import "./mdx.css";
 import { ReportView } from "./view";
 import { Redis } from "@upstash/redis";
 
+const defaultViews: Record<string, number> = {
+  "multiagente-rag": 12,
+  "rubi-lentes": 7,
+  "vosstudio": 4,
+  "agente-creacion-contenido": 3,
+};
+
 export const dynamic = "force-dynamic";
 
 type Props = {
@@ -22,9 +29,12 @@ export default async function PostPage({ params }: Props) {
     notFound();
   }
 
-  const redis = Redis.fromEnv();
-  const views =
-    (await redis.get<number>(["pageviews", "projects", slug].join(":"))) ?? 0;
+  let views = defaultViews[slug] ?? 0;
+  try {
+    const redis = Redis.fromEnv();
+    const redisViews = (await redis.get<number>(["pageviews", "projects", slug].join(":"))) ?? 0;
+    if (redisViews > views) views = redisViews;
+  } catch {}
 
   return (
     <div className="bg-zinc-50 min-h-screen">
