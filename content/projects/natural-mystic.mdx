@@ -1,0 +1,33 @@
+---
+title: Natural Mystic
+description: E-commerce premium de cosmética natural y artesanal, con catálogo de productos interactivo, carrito de compras persistente, checkout simulado y panel de administración dinámico.
+date: "2026-05-12"
+url: https://natural-mystic-omega.vercel.app
+urlLabel: "Ver Tienda"
+published: true
+repository: DiegoAutomata/Nastural-Mystic
+category: "Páginas Web & E-Commerce"
+---
+
+## Resumen del Proyecto
+
+**Natural Mystic** es una plataforma de comercio electrónico dedicada a la venta de productos de bienestar espiritual y cosmética natural hechos a mano (velas, sahumerios, jabones y cremas). El sitio ofrece una experiencia de navegación sumamente fluida y visualmente atractiva, diseñada para transmitir paz, naturalidad y elegancia.
+
+El desarrollo fue diseñado con una arquitectura moderna en la cual el frontend de React interactúa de manera directa con una API serverless robusta y ligera desplegada en Vercel, optimizando los costos de infraestructura y garantizando una velocidad de carga excepcional.
+
+## Características Principales
+
+- **Catálogo Interactivo**: Clasificación en 4 categorías principales (Velas, Sahumerios, Jabones y Cremas) con filtrado instantáneo y visualización detallada de cada producto.
+- **Carrito de Compras Completo**: Flujo reactivo para añadir, remover y ajustar cantidades de productos con persistencia local (`localStorage`) para asegurar que el usuario no pierda su selección.
+- **Simulación de Checkout**: Formulario optimizado paso a paso para la recolección de datos de envío y simulación interactiva de pasarela de pago (tarjeta de crédito).
+- **Control de Acceso y Panel Admin**: Panel de control protegido mediante autenticación con JSON Web Tokens (JWT) y contraseñas cifradas con `bcrypt` en el servidor, permitiendo gestionar el catálogo y monitorizar las compras simuladas.
+- **Diseño Adaptativo con Temas**: Implementación nativa de modo claro y oscuro en componentes clave (Navbar, Footer, etc.) con transiciones suaves y optimización responsive absoluta para móvil, tablet y escritorio.
+
+## Stack Tecnológico
+
+- **Frontend**: React 19, TypeScript, Vite 7 y Tailwind CSS 4.
+- **Animaciones**: Framer Motion para transiciones suaves e interacciones micro-animadas.
+- **Backend API**: Vercel Serverless Functions basadas en Node.js, actuando como capa intermedia segura.
+- **Base de Datos**: MongoDB Atlas para almacenamiento persistente del catálogo, usuarios y compras.
+- **Autenticación**: JWT (JSON Web Tokens) + cifrado bcrypt.
+- **Despliegue**: Vercel para una integración continua y hosting de alto rendimiento.
