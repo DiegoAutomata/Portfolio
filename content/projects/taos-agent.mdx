@@ -1,9 +1,9 @@
 ---
 title: TAOS Agent
-description: Sistema comercial multilingüe para WhatsApp que combina conversación con IA, cotizaciones deterministas, seguimiento de reservas y derivación humana para un rental de nieve en Bariloche.
+description: Sistema operativo comercial con IA para WhatsApp que integra atención multilingüe, cotizaciones confiables, gestión desde una PWA y análisis estratégico del negocio para un rental de nieve en Bariloche.
 date: "2026-08-25"
 url: https://taos-agent-showcase-demo.vercel.app
-urlLabel: "Explorar Demo"
+urlLabel: "Explorar Plataforma"
 published: true
 category: "Agentes IA & RAG"
 ---
@@ -16,7 +16,11 @@ Una consulta por WhatsApp rara vez llega completa: el cliente puede enviar vario
 
 ## La solución
 
-Marcela, la agente comercial, atiende texto y audio en español, portugués brasileño e inglés. La IA comprende la intención y redacta la respuesta, mientras que herramientas deterministas controlan los datos que no se pueden improvisar:
+TAOS conecta tres pilares para cubrir la atención, la operación y la mejora continua del negocio.
+
+### 1. Marcela: agente comercial por WhatsApp
+
+Marcela atiende texto y audio en español, portugués brasileño e inglés. La IA comprende la intención y redacta cada respuesta, mientras que herramientas deterministas controlan los datos que no se pueden improvisar:
 
 - catálogo, cantidades y duración del alquiler;
 - precios, descuentos, moneda, seña y saldo;
@@ -24,21 +28,47 @@ Marcela, la agente comercial, atiende texto y audio en español, portugués bras
 - creación y seguimiento de solicitudes de alquiler;
 - derivación al dueño cuando hay negociación, comprobantes o una consulta no verificable.
 
-El cliente permanece en WhatsApp. El equipo opera desde una PWA con bandeja de conversaciones, calendario de alquileres, métricas comerciales y notificaciones Push.
+El cliente resuelve toda su consulta desde WhatsApp y recibe respuestas rápidas sin perder la continuidad de la conversación.
+
+### 2. PWA para operar el negocio
+
+El dueño y su equipo trabajan desde una aplicación web progresiva diseñada para usarse tanto en el teléfono como en una computadora. La PWA concentra la operación diaria en un único lugar:
+
+- bandeja de conversaciones con historial y contexto de cada cliente;
+- intervención humana cuando una negociación requiere decisión del dueño;
+- seguimiento de solicitudes, cotizaciones, señas, saldos y reservas;
+- calendario operativo para organizar entregas, devoluciones y disponibilidad;
+- métricas comerciales para entender consultas, conversiones y movimiento del negocio;
+- notificaciones Push ante conversaciones prioritarias, comprobantes o tareas que necesitan atención.
+
+De esta forma, WhatsApp deja de ser una sucesión desordenada de mensajes y se convierte en un proceso comercial visible y gestionable.
+
+### 3. Agente de análisis y estrategia
+
+El tercer pilar es un agente especializado en análisis de datos y en el funcionamiento integral del rental. Reúne el conocimiento relevante del negocio —catálogo, precios, inventario, políticas, temporadas, clientes, conversaciones, cotizaciones, reservas y métricas— para detectar patrones y convertirlos en propuestas concretas.
+
+Este agente identifica oportunidades, cuellos de botella y cambios de comportamiento. Puede recomendar ajustes de precios y promociones, anticipar demanda, señalar productos con alta o baja rotación, mejorar el seguimiento comercial, descubrir consultas que se pierden y proponer cambios operativos. Cada recomendación explica qué observó, por qué importa y qué impacto podría generar, para que el dueño tome mejores decisiones con evidencia.
 
 ## Arquitectura
 
 ```text
-WhatsApp → webhook autenticado → cola durable → agente con IA
-                                      │              │
-                                      │              ├─ motor de cotización
-                                      │              ├─ validadores de respuesta
-                                      │              └─ reglas de handoff
-                                      ↓
-                             Supabase / PostgreSQL → PWA del dueño
+Clientes en WhatsApp → webhook autenticado → cola durable → Marcela
+                                                        │
+                                                        ├─ motor de cotización
+                                                        ├─ validadores de respuesta
+                                                        └─ reglas de handoff
+                                                                 │
+                                                                 ↓
+                                                    Supabase / PostgreSQL
+                                                       │              │
+                                                       ↓              ↓
+                                               PWA del equipo   Agente de análisis
+                                                                      │
+                                                                      ↓
+                                                        Propuestas de mejora
 ```
 
-El diseño separa responsabilidades: el modelo entiende y conversa; el código conserva la autoridad sobre precios, persistencia, permisos y efectos externos.
+El diseño separa responsabilidades: Marcela entiende y conversa; el código conserva la autoridad sobre precios, persistencia, permisos y efectos externos; y el agente analista transforma la información acumulada en decisiones de negocio.
 
 ## Decisiones que aportan confiabilidad
 
@@ -49,16 +79,15 @@ El diseño separa responsabilidades: el modelo entiende y conversa; el código c
 - **Fallo seguro:** ante una dependencia caída o información insuficiente, el sistema deriva al humano en vez de inventar.
 - **Aislamiento de datos:** autenticación, autorización del propietario y Row Level Security protegen la operación.
 
-## Qué demuestra la versión interactiva
+## Cómo funciona la operación
 
-La demo pública reproduce con datos completamente ficticios el recorrido del dueño: una conversación comercial, la cotización validada, la preparación de una reserva, el handoff y la actualización del calendario y las métricas.
-
-Funciona íntegramente en el navegador. No se conecta a WhatsApp, al teléfono del cliente, a la base de producción ni a proveedores de pago. El código comercial completo, los prompts privados, las credenciales y los datos reales no forman parte de la demostración.
-
-## Estado honesto del proyecto
-
-El sistema se encuentra en **preproducción y validación manual**. La arquitectura, las reglas comerciales, las pruebas automatizadas y la experiencia operativa están implementadas; antes de afirmar disponibilidad continua o cobros reales todavía corresponde completar la validación física de punta a punta y reemplazar la infraestructura transitoria del worker.
+1. El cliente consulta por WhatsApp mediante texto o audio.
+2. Marcela reconstruye el contexto, solicita los datos que faltan y prepara una cotización consistente.
+3. La solicitud queda registrada y avanza por el flujo comercial hasta convertirse en una reserva.
+4. Cuando se necesita criterio humano, la PWA notifica al dueño para que intervenga con todo el contexto disponible.
+5. El equipo organiza entregas y devoluciones desde el calendario, consulta métricas y supervisa las conversaciones.
+6. El agente analista estudia la actividad del sistema y propone acciones para vender mejor, reducir pérdidas y optimizar la operación.
 
 ## Tecnologías
 
-TypeScript, Node.js, React, Next.js, Fastify, Supabase/PostgreSQL, Zod, OpenRouter, Evolution API, transcripción de audio, Web Push, Vitest, Docker y Vercel.
+TypeScript, Node.js, React, Next.js, PWA, Fastify, Supabase/PostgreSQL, Zod, OpenRouter, Evolution API, transcripción de audio, Web Push, Vitest, Docker y Vercel.
