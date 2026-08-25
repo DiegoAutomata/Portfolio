@@ -1,7 +1,8 @@
 {
-  "name": "chronark.com",
+  "name": "diego-lezana-portfolio",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.28.1",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -52,3 +53,4 @@
     }
   }
 }
+
