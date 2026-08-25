@@ -1,0 +1,65 @@
+---
+title: TAOS Agent
+description: Sistema comercial multilingüe para WhatsApp que combina conversación con IA, cotizaciones deterministas, seguimiento de reservas y derivación humana para un rental de nieve en Bariloche.
+date: "2026-08-25"
+url: https://taos-agent-showcase-demo.vercel.app
+urlLabel: "Explorar Demo"
+published: true
+category: "Agentes IA & Automatización"
+---
+
+## El desafío
+
+Una consulta por WhatsApp rara vez llega completa: el cliente puede enviar varios mensajes, cambiar de idioma, mandar un audio o preguntar por precios antes de definir fechas, talles y cantidades. Para el negocio, responder rápido no alcanza; cada importe, descuento, seña y disponibilidad debe mantenerse consistente.
+
+**TAOS Agent** fue diseñado para convertir esas conversaciones fragmentadas en oportunidades comerciales ordenadas sin quitarle el control al dueño.
+
+## La solución
+
+Marcela, la agente comercial, atiende texto y audio en español, portugués brasileño e inglés. La IA comprende la intención y redacta la respuesta, mientras que herramientas deterministas controlan los datos que no se pueden improvisar:
+
+- catálogo, cantidades y duración del alquiler;
+- precios, descuentos, moneda, seña y saldo;
+- contexto persistente entre mensajes consecutivos;
+- creación y seguimiento de solicitudes de alquiler;
+- derivación al dueño cuando hay negociación, comprobantes o una consulta no verificable.
+
+El cliente permanece en WhatsApp. El equipo opera desde una PWA con bandeja de conversaciones, calendario de alquileres, métricas comerciales y notificaciones Push.
+
+## Arquitectura
+
+```text
+WhatsApp → webhook autenticado → cola durable → agente con IA
+                                      │              │
+                                      │              ├─ motor de cotización
+                                      │              ├─ validadores de respuesta
+                                      │              └─ reglas de handoff
+                                      ↓
+                             Supabase / PostgreSQL → PWA del dueño
+```
+
+El diseño separa responsabilidades: el modelo entiende y conversa; el código conserva la autoridad sobre precios, persistencia, permisos y efectos externos.
+
+## Decisiones que aportan confiabilidad
+
+- **Idempotencia y deduplicación:** un evento repetido del proveedor no genera respuestas ni operaciones duplicadas.
+- **Control de concurrencia:** un mensaje nuevo invalida una respuesta pendiente para evitar contestar con contexto viejo.
+- **Cotización determinista:** los importes no salen del modelo de lenguaje.
+- **Salida estructurada:** contratos Zod y validadores rechazan argumentos o afirmaciones no admitidas.
+- **Fallo seguro:** ante una dependencia caída o información insuficiente, el sistema deriva al humano en vez de inventar.
+- **Aislamiento de datos:** autenticación, autorización del propietario y Row Level Security protegen la operación.
+
+## Qué demuestra la versión interactiva
+
+La demo pública reproduce con datos completamente ficticios el recorrido del dueño: una conversación comercial, la cotización validada, la preparación de una reserva, el handoff y la actualización del calendario y las métricas.
+
+Funciona íntegramente en el navegador. No se conecta a WhatsApp, al teléfono del cliente, a la base de producción ni a proveedores de pago. El código comercial completo, los prompts privados, las credenciales y los datos reales no forman parte de la demostración.
+
+## Estado honesto del proyecto
+
+El sistema se encuentra en **preproducción y validación manual**. La arquitectura, las reglas comerciales, las pruebas automatizadas y la experiencia operativa están implementadas; antes de afirmar disponibilidad continua o cobros reales todavía corresponde completar la validación física de punta a punta y reemplazar la infraestructura transitoria del worker.
+
+## Tecnologías
+
+TypeScript, Node.js, React, Next.js, Fastify, Supabase/PostgreSQL, Zod, OpenRouter, Evolution API, transcripción de audio, Web Push, Vitest, Docker y Vercel.
+

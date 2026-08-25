@@ -6,6 +6,7 @@ El sitio reúne proyectos de agentes de IA, arquitecturas RAG, automatizaciones,
 
 ## Proyectos incluidos
 
+- **TAOS Agent** — sistema comercial multilingüe para WhatsApp con cotizaciones deterministas, handoff humano y PWA operativa.
 - **MultiAgente RAG** — sistema de búsqueda documental con asistentes especializados y control de alucinaciones.
 - **Rubi Lentes** — comercio electrónico con asistencia de IA, WhatsApp y gestión de productos.
 - **Vosstudio** — experiencia web multilingüe orientada a captación y conversión.
