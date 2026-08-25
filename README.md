@@ -1,33 +1,73 @@
-<div align="center">
-    <a href="https://chronark.com"><h1 align="center">chronark.com</h1></a>
+# Portfolio de Diego Lezana
 
-My personal website, built with [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/), [Upstash](https://upstash.com?ref=chronark.com), [Contentlayer](https://www.contentlayer.dev/) and deployed to [Vercel](https://vercel.com/).
+Portfolio técnico personal de [Diego Lezana](https://www.linkedin.com/in/diego-lezana-ai), Applied AI Engineer y fundador de [Lezrai](https://lezrai.com).
 
-</div>
+El sitio reúne proyectos de agentes de IA, arquitecturas RAG, automatizaciones, integraciones y aplicaciones web. Cada caso se publica desde un archivo MDX con su problema, solución, arquitectura y enlaces relacionados.
 
-<br/>
+## Proyectos incluidos
 
+- **MultiAgente RAG** — sistema de búsqueda documental con asistentes especializados y control de alucinaciones.
+- **Rubi Lentes** — comercio electrónico con asistencia de IA, WhatsApp y gestión de productos.
+- **Vosstudio** — experiencia web multilingüe orientada a captación y conversión.
+- **Agente de creación de contenido** — flujo asistido por IA para investigar y producir contenido.
+- **Natural Mystic** — comercio electrónico con catálogo, carrito y checkout.
+- **Vértice Extremo** — aplicación demostrativa de turismo de aventura con asistente y reservas.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/upstash/clone?demo-title=Next.js%20Portfolio%20with%20Pageview%20Counter&demo-description=Portfolio%20site%20with%20pageview%20counter%2C%20built%20with%20Next.js%2013%20App%20Router%2C%20Contentlayer%2C%20and%20Upstash%20Redis.&demo-url=https%3A%2F%2Fchronark.com%2F&demo-image=%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F1DA8n5a6WaP9p1FXf9LmUY%2Fc6264fa2732355787bf657df92dda8a1%2FCleanShot_2023-04-17_at_14.17.37.png&project-name=Next.js%20Portfolio%20with%20Pageview%20Counter&repository-name=nextjs-portfolio-pageview-counter&repository-url=https%3A%2F%2Fgithub.com%2Fchronark%2Fchronark.com&from=templates&integration-ids=oac_V3R1GIpkoJorr6fqyiwdhl17)
+Los casos se mantienen en [`content/projects`](./content/projects) y se muestran únicamente cuando declaran `published: true`.
 
-## Running Locally
+## Stack
 
+- Next.js 13 con App Router
+- React y TypeScript
+- Tailwind CSS y Framer Motion
+- Contentlayer y MDX para los casos
+- Upstash Redis para métricas de visualización
+- Vercel o Docker para despliegue
 
-```sh-session
-git clone https://github.com/chronark/chronark.com.git
-cd chronark.com
-```
+## Desarrollo local
 
+Requisitos: Node.js 18+ y pnpm 10.
 
-Create a `.env` file similar to [`.env.example`](https://github.com/chronark/chronark.com/blob/main/.env.example).
-
-Then install dependencies and run the development server:
-```sh-session
+```bash
+git clone https://github.com/DiegoAutomata/Portfolio.git
+cd Portfolio
 pnpm install
+cp .env.example .env.local
 pnpm dev
 ```
 
+La aplicación queda disponible en `http://localhost:3000`.
 
-## Cloning / Forking
+Las variables de Upstash son opcionales para navegar el portfolio localmente; sin ellas, el sitio utiliza valores de respaldo para las visualizaciones.
 
-Please remove all of my personal information (projects, images, etc.) before deploying your own version of this site.
+```env
+UPSTASH_REDIS_REST_URL=
+UPSTASH_REDIS_REST_TOKEN=
+```
+
+## Comandos
+
+```bash
+pnpm dev      # servidor de desarrollo
+pnpm build    # build de producción y generación de contenido
+pnpm start    # servidor de producción
+pnpm fmt      # formato y análisis estático con Rome
+```
+
+## Añadir un proyecto
+
+1. Crear un archivo `.mdx` dentro de [`content/projects`](./content/projects).
+2. Completar el frontmatter siguiendo los casos existentes.
+3. Marcar `published: true` cuando el contenido y sus enlaces estén verificados.
+4. Ejecutar `pnpm build` antes de publicar.
+
+## Autoría y atribución
+
+El contenido, la selección de proyectos y las adaptaciones de este portfolio pertenecen a Diego Lezana.
+
+La base visual y técnica deriva del portfolio open source [`chronark.com`](https://github.com/chronark/chronark.com), creado por Andreas Thomas y utilizado bajo licencia MIT. El aviso de copyright original se conserva en [`LICENSE`](./LICENSE), tal como exige esa licencia.
+
+## Licencia
+
+Código distribuido bajo [MIT](./LICENSE). Las marcas, textos, imágenes y materiales de cada proyecto pueden tener condiciones propias y no quedan relicenciados automáticamente por la licencia del código.
+
